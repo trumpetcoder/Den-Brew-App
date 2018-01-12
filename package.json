@@ -1,0 +1,24 @@
+{
+  "name": "Den-Brew-App",
+  "version": "1.0.0",
+  "description": "# Denver-Brewery-App",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/trumpetcoder/Den-Brew-App.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/trumpetcoder/Den-Brew-App/issues"
+  },
+  "homepage": "https://github.com/trumpetcoder/Den-Brew-App#readme",
+  "dependencies": {
+    "express": "^4.16.2"
+  }
+}
