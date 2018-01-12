@@ -1,6 +1,5 @@
 # Den-Brew-App
 
-# Denver-Brewery-App
 
 Basic description: A fully functional fullstack app that allows a user to select breweries they have visited in the Denver Metro area.
 
