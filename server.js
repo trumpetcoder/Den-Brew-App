@@ -5,7 +5,7 @@ var express = require('express'),
   port = process.env.PORT || 3000;
 
 // connect to db models
-// var db = require('./models');
+var db = require('./models'); //added
 
 // Dummy Data
 var breweries = [
@@ -20,12 +20,14 @@ function homeController (req, res) {
   res.sendFile(__dirname + '/views/index.html'); //Setting the index.html as the rendered file when the base url is hit
 }
 
-
-// serve static files in public
+// Serve static files from the `/public` directory:
+// i.e. `/images`, `/scripts`, `/styles`
 app.use(express.static('public'));
 
-// body parser config to accept our datatypes
+// parse incoming urlencoded form data
+// and populate the req.body object
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json()); //added
 
 // Middleware
 app.use(function(req, res, next) {
@@ -34,11 +36,11 @@ app.use(function(req, res, next) {
   next();
 });
 
-// Route reconfig a GET to '/' routes to homeController
+// Route reconfig a GET to '/' routes to homeController hits the /views/index.html
 app.get('/', homeController);
 
 // Breweries api index to hit 
-app.get('/api/breweries', function (req, res) {
+app.get('/api/breweries', function (req, res) { //utilizing hardcoded data
   res.json(breweries); 
 
 });
