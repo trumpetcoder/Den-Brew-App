@@ -5,7 +5,7 @@ var express = require('express'),
   port = process.env.PORT || 3000;
 
 // connect to db models
-var db = require('./models'); //added
+// var db = require('./models'); //added
 
 // Dummy Data
 var breweries = [

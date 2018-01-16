@@ -1,18 +1,18 @@
 // Setting up a Breweries model and Schema
 
-var mongoose = require('mongoose'),
-  Schema = mongoose.Schema;
+// var mongoose = require('mongoose'),
+//   Schema = mongoose.Schema;
 
-var BrewerySchema = new Schema({
-  name: String,
-  description: String,
-  website: String,
-  established: String
-});
+// var BrewerySchema = new Schema({
+//   name: String,
+//   description: String,
+//   website: String,
+//   established: String
+// });
 
-var Brewery = mongoose.model('Brewery', BrewerySchema);
+// var Brewery = mongoose.model('Brewery', BrewerySchema);
 
-module.exports = Brewery;
+// module.exports = Brewery;
 
 // var mongoose = require('mongoose'),
 // // Using the built in mongoose.Schema set to Schema
