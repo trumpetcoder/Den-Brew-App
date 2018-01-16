@@ -38,10 +38,10 @@ app.use(flash());
 // var router = require('./config/routes');
 
 // Home CONTROLLER (Setting up a function for homeController)
-function homeController (req, res) {
-  console.log('Home Controller Hit');
-  res.sendFile(__dirname + '/views/index.html'); //Setting the index.html as the rendered file when the base url is hit
-}
+// function homeController (req, res) {
+//   console.log('Home Controller Hit');
+//   res.sendFile(__dirname + '/views/index.html'); //Setting the index.html as the rendered file when the base url is hit
+// }
 
 // Middleware
 app.use(function(req, res, next) {
@@ -50,8 +50,11 @@ app.use(function(req, res, next) {
   next();
 });
 
-// Route reconfig a GET to '/' routes to homeController hits the /views/index.html
-app.get('/', homeController);
+// Route GET to '/' hit the /views/index.html
+app.get('/', function(req,res) {
+  console.log('Hit to The Home Page');
+  res.sendFile(__dirname + '/views/index.html');
+});
 
 app.get('/api', function api_index(req, res) {
   // Documented API endpoints for Den-Brewery-App
@@ -138,6 +141,13 @@ app.delete('/api/breweries/:id', function (req, res) {
   });
 });
 
+// Requiring router
+// var routes = require('./config/routes.js');
+// app.use(routes);
+
+// connect to db models (Database)
+// var db = require('./models'); //added
+// app.use(db);
 
 
 // START SERVER
