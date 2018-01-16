@@ -7,6 +7,7 @@ mongoose.connect( process.env.MONGODB_URI ||
 
 // Requiring the breweries.js file
 module.exports.Breweries = require("./breweries.js");
+module.exports.User = require("./user.js");
 
 
 
