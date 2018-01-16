@@ -68,10 +68,12 @@ app.get('/api/profile', function(req, res) {
   });
 });
 
-// Breweries api index to hit 
-app.get('/api/breweries', function (req, res) { //utilizing hardcoded data
-  res.json(breweries); 
-
+// Breweries api index to hit get all Breweries
+app.get('/api/breweries', function (req, res) {
+  // send all Breweries as JSON response
+  db.Breweries.find(function (err, brewery) {
+    res.json(brewery);
+  });  
 });
 
 
