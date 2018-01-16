@@ -103,6 +103,17 @@ app.post('/api/breweries', function (req, res) {
   });
 });
 
+// Update a Brewery by id
+app.put('/api/breweries/:id', function update(req, res) {
+  var localBrew = req.params.id;
+  db.Breweries.findOneAndUpdate({_id: req.params.id}, {$set: {name: req.body.name}}, function (err, localBrew) {
+    if (err) {
+      return console.log(err);
+    }
+    res.json(localBrew);
+  });
+});
+
 
 
 // START SERVER
