@@ -83,6 +83,26 @@ app.get('/api/breweries/:id', function (req, res) {
   });
 });
 
+// create new Brewery
+app.post('/api/breweries', function (req, res) {
+  console.log(req.body.name);
+  var newBrewery = new db.Breweries({
+    name: req.body.name,
+    description: req.body.description,
+    website: req.body.website,
+    established: req.body.established
+  });
+  console.log(newBrewery);
+  // save new Brewery
+    db.Breweries.create(newBrewery, function (err, brewery) {
+      if (err) {
+        return console.log('save error: ' + err);      
+      }
+      console.log('save ', brewery.name);
+      res.json(brewery);
+  });
+});
+
 
 
 // START SERVER
