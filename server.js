@@ -76,14 +76,14 @@ app.get('/api/breweries', function (req, res) {
   });  
 });
 
-// get one Brewery by id
+// Get one Brewery by id
 app.get('/api/breweries/:id', function (req, res) {
   db.Breweries.findOne({_id: req.params.id}, function (req, brewery) {
     res.json(brewery);
   });
 });
 
-// create new Brewery
+// Create new Brewery
 app.post('/api/breweries', function (req, res) {
   console.log(req.body.name);
   var newBrewery = new db.Breweries({
@@ -111,6 +111,17 @@ app.put('/api/breweries/:id', function update(req, res) {
       return console.log(err);
     }
     res.json(localBrew);
+  });
+});
+
+// Delete a Brewery
+app.delete('/api/breweries/:id', function (req, res) {
+  // get Brewery id from url params (`req.params`)
+  console.log('brewery delete', req.params);
+  var delBrewery = req.params.id;
+  // find the index of the Brewery we want to remove
+  db.Breweries.findOneAndRemove({ _id: delBrewery }, function (err, deletedBrewery) {
+    res.json(deletedBrewery);
   });
 });
 
