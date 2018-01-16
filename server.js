@@ -1,33 +1,26 @@
 //require express in our app, generate a new express app and call it 'app', Require body-parser, setting the port variable
 var express = require('express'),
   app = express(),
-  bodyParser = require('body-parser'),
-  port = process.env.PORT || 3000;
-
-// connect to db models
-var db = require('./models'); //added
-
-// Dummy Data
-// var breweries = [
-//   { name : 'Wynkoop' },
-//   { name : 'Alpine Dog'},
-//   { name : 'Jagged Mountain'}
-// ];
-
-// Home CONTROLLER
-function homeController (req, res) {
-  console.log('Home Controller Hit');
-  res.sendFile(__dirname + '/views/index.html'); //Setting the index.html as the rendered file when the base url is hit
-}
-
-// Serve static files from the `/public` directory:
-// i.e. `/images`, `/scripts`, `/styles`
-app.use(express.static('public'));
+  bodyParser = require('body-parser');
+  
 
 // parse incoming urlencoded form data
 // and populate the req.body object
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json()); //added
+
+// connect to db models (Database)
+var db = require('./models'); //added
+
+// Serve static files from the `/public` directory:
+// i.e. `/images`, `/scripts`, `/styles`
+app.use(express.static('public'));
+
+// Home CONTROLLER (Setting up a function for homeController)
+function homeController (req, res) {
+  console.log('Home Controller Hit');
+  res.sendFile(__dirname + '/views/index.html'); //Setting the index.html as the rendered file when the base url is hit
+}
 
 // Middleware
 app.use(function(req, res, next) {
@@ -63,8 +56,7 @@ app.get('/api/profile', function(req, res) {
     name: 'Kevin James',
     city: 'Denver',
     github_link: 'https://github.com/trumpetcoder',
-    description: 'I have an undergraduate degree in Music Ed. and 4+ years of Masters work in music history/performance. I have recently taken on fullstack web development',
-    
+    description: 'I have an undergraduate degree in Music Ed. and 4+ years of Masters work in music history/performance. I have recently taken on fullstack web development',    
   });
 });
 
@@ -128,8 +120,9 @@ app.delete('/api/breweries/:id', function (req, res) {
 
 
 // START SERVER
-app.listen(port, function() {
-  console.log('Server started on', port);
+// listen on port 3000
+app.listen(process.env.PORT || 3000, function () {
+  console.log('Express server is up and running on http://localhost:3000/');
 });
 
 

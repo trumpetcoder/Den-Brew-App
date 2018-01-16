@@ -3,6 +3,7 @@
 
 var db = require('./models/');
 
+// Premade seed data for the db
 var local_Breweries = [
 	{
 	name: "Tivoli Brewing",
@@ -80,8 +81,14 @@ db.Breweries.remove({}, function(err, trumpet){ //Removes Old Seeded data
 	  if (err){
 		return console.log('Error:', err);
 	  }
-	    console.log(brewery);
-	    console.log('Created new brewery', brewery._id);
+	    console.log(brewery); //Checking the created brewery with console.log
+	    console.log('Created new brewery', brewery._id); //Checking the created brewery and id
 	    process.exit();
     });
 });
+
+
+
+
+
+// end
