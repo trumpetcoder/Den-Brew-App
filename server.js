@@ -68,12 +68,19 @@ app.get('/api/profile', function(req, res) {
   });
 });
 
-// Breweries api index to hit get all Breweries
+// Breweries api index to get all Breweries
 app.get('/api/breweries', function (req, res) {
   // send all Breweries as JSON response
   db.Breweries.find(function (err, brewery) {
     res.json(brewery);
   });  
+});
+
+// get one Brewery by id
+app.get('/api/breweries/:id', function (req, res) {
+  db.Breweries.findOne({_id: req.params.id}, function (req, brewery) {
+    res.json(brewery);
+  });
 });
 
 
