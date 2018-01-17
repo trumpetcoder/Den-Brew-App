@@ -61,3 +61,16 @@ Glow 2: Obtainable in timeframe given
 
 Grow: Add in the wireframes to README using Mockflow or other service
 Grow: Build out Trello Board user stories and add ratings
+
+Stretch: Break out routes and organize better
+	Use Ajax to dynamically present material
+	Get search bars to be functional
+	Better styling
+	Add Footer
+
+
+
+
+
+
+<!-- End -->
