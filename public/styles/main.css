@@ -1,7 +1,17 @@
 /*Styling file, check for proper connection*/
 
-.navbar {
-	text-align: center;
+#signup {
+	height: 100vh;
+	width: 100vw;
+	/*background-repeat: no-repeat;*/
+	/*background-size: cover;*/
+}
+
+#login {
+	height: 100vh;
+	width: 100vw;
+	/*background-repeat: no-repeat;*/
+	/*background-size: cover;*/
 }
 
 
