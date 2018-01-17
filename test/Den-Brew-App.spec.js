@@ -1,8 +1,9 @@
 // Test Directory
-var Brewery = require('../models/breweries'),
-	User = require('../models/user'),
-	expect = require('chai').expect;
+var Brewery = require('../models/breweries'), //Requiring models/breweries for testing Breweries model
+	User = require('../models/user'), //Requiring models/user for testing User model
+	expect = require('chai').expect; //look for Chai
 
+// Checking the Breweries model name
 describe('Checing if Breweries model works', function ()  {
 	describe("new Brewery name", function ()  {
 		it("initializes a new Brewery name", function ()  {
@@ -14,6 +15,7 @@ describe('Checing if Breweries model works', function ()  {
 	});
 });
 
+// Checking the Breweries model description
 describe('Checing if Breweries model works', function ()  {
 	describe("new Brewery description", function ()  {
 		it("initializes a new Brewery description", function ()  {
@@ -25,6 +27,7 @@ describe('Checing if Breweries model works', function ()  {
 	});
 });
 
+// Checking the Breweries model website
 describe('Checing if Breweries model website works', function ()  {
 	describe("new Brewery website", function ()  {
 		it("initializes a new Brewery website", function ()  {
@@ -36,6 +39,7 @@ describe('Checing if Breweries model website works', function ()  {
 	});
 });
 
+// Checking the Breweries model establish date
 describe('Checing if Breweries model established works', function ()  {
 	describe("new Brewery established", function ()  {
 		it("initializes a new Brewery established date", function ()  {
@@ -47,6 +51,7 @@ describe('Checing if Breweries model established works', function ()  {
 	});
 });
 
+// Checking the User model email
 describe('Checing if User email property model works', function ()  {
 	describe("new User email property", function ()  {
 		it("initializes a new User email", function ()  {

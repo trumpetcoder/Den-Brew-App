@@ -122,7 +122,7 @@ app.post('/api/breweries', function (req, res) {
 // Update a Brewery by id
 app.put('/api/breweries/:id', function update(req, res) {
   var localBrew = req.params.id;
-  db.Breweries.findOneAndUpdate({_id: req.params.id}, {$set: {name: req.body.name}}, function (err, localBrew) {
+  db.Breweries.findOneAndUpdate({_id: req.params.id}, {$set: {name: req.body.name, description: req.body.description, website: req.body.website, established: req.body.established}}, function (err, localBrew) {
     if (err) {
       return console.log(err);
     }

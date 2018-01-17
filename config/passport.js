@@ -31,7 +31,7 @@ module.exports = function(passport) {
 			// There is a user with this email
 			if(user) {
 				console.log('We Found a User');  // If the user already exists return a console.log
-				return callback(null, false, req.flash('signupMessage', 'Email in Use')); // Using a flash message as an alert on the screen needs buildout
+				return callback(null, false, req.flash('signupMessage', "Email in Use. You've Already Signed Up. Click the Login Button!")); // Using a flash message as an alert on the screen needs buildout
 
 
 			} else {
@@ -67,7 +67,7 @@ module.exports = function(passport) {
            }
            //wrong password
            if(!user.validPassword(password)){
-               return callback(null, false, req.flash('loginMessage', 'Wrong password.'));
+               return callback(null, false, req.flash('loginMessage', 'Wrong password. Please Try Again'));
            }
            
            return callback(null, user);
