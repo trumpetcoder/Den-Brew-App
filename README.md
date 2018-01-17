@@ -47,8 +47,8 @@ Workflow:
 	Render information through the use of AJAX calls using third party API.
 
 
-Technologies Used: 
-HTML | CSS | Javascript | Node.js | Mongo | Mongoose
+Technologies Used : 
+HTML | CSS | Javascript | Node.js | Mongo | Mongoose | Bootstrap | 
 
 Link to [TRELLO](https://trello.com/b/hhZhAehF/denver-brewery-app)
 
@@ -64,7 +64,7 @@ Grow: Build out Trello Board user stories and add ratings
 
 Stretch: Break out routes and organize better
 	Use Ajax to dynamically present material
-	Get search bars to be functional
+	Get search bar to be functional
 	Better styling
 	Add Footer
 
