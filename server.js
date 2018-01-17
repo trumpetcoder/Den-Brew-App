@@ -32,10 +32,10 @@ app.use(passport.session());
 app.use(flash());
 
 // Requiring the passport file found in config (Added as part of Passport buildout)
-// require('./config/passport')(passport); //Throwing a type error
+require('./config/passport')(passport); //Throwing a type error
 
 // Setting a variable router to be used in passport (Added as part of Passport)
-// var router = require('./config/routes');
+var router = require('./config/routes');
 
 // Home CONTROLLER (Setting up a function for homeController)
 // function homeController (req, res) {
@@ -139,6 +139,38 @@ app.delete('/api/breweries/:id', function (req, res) {
   db.Breweries.findOneAndRemove({ _id: delBrewery }, function (err, deletedBrewery) {
     res.json(deletedBrewery);
   });
+});
+
+// // A route we need to hit from the link on the splash page to get us to a simple signup form
+app.get('/signup', function(req, res) { //route we want to hit
+ res.render('signup.ejs', {message: req.flash('signupMessage')}); //the file we want to render. This points to signup.ejs form
+});
+
+// Our signup post strategy utilizing the local-signup strategy
+app.post('/signup', function(req, res, next) {
+ // res.send(req.body); a way to check the form has worked
+ console.log('post route hit'); // checking to see if we have the post route 
+ var signupStrategy = passport.authenticate('local-signup', { // a variable set-up to utilizing the local-signup 
+   successRedirect: '/', // A route that redirects us when successful. Needs built out
+   failureRedirect: '/signup', // A route that points us to the sign-up page if not successful
+   failureFlash: true 
+ });
+
+ return signupStrategy(req, res, next); 
+});
+
+app.get('/login', function(req, res){
+   res.render('login.ejs', {message: req.flash('loginMessage')});
+});
+
+app.post('/login', function(req, res, next){
+   console.log('attempting to');
+   var loginStrategy = passport.authenticate('local-login', {
+       successRedirect: '/',
+       failureRedirect: '/login',
+       failureFlash: true  
+   });
+   return loginStrategy(req, res, next);
 });
 
 // Requiring router

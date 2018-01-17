@@ -1,4 +1,4 @@
-// // setting a router variable and requiring express with the Router function
+// setting a router variable and requiring express with the Router function
 // var router = require('express').Router();
 // // requiring passport 
 // var passport = require('passport'); 
