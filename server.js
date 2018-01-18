@@ -7,21 +7,18 @@ var express = require('express'),
 var passport = require('passport'),
   session = require('express-session'),
   flash = require('connect-flash');
-  
 
 // parse incoming urlencoded form data
 // and populate the req.body object
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json()); //added
 
-// connect to db models (Database)
-var db = require('./models'); //added
-
 // Serve static files from the `/public` directory:
 // i.e. `/images`, `/scripts`, `/styles`
 app.use(express.static('public'));
 
 // Firing up our Engine (Added as part of Passport buildout!)
+app.set('views', __dirname); //Added to make views the base directory
 app.engine('ejs', require('ejs').renderFile);
 app.set('view engine', 'ejs');
 
@@ -32,16 +29,10 @@ app.use(passport.session());
 app.use(flash());
 
 // Requiring the passport file found in config (Added as part of Passport buildout)
-require('./config/passport')(passport); //Throwing a type error
+require('./config/passport')(passport); //Seems to be Working
 
 // Setting a variable router to be used in passport (Added as part of Passport)
 var router = require('./config/routes');
-
-// Home CONTROLLER (Setting up a function for homeController)
-// function homeController (req, res) {
-//   console.log('Home Controller Hit');
-//   res.sendFile(__dirname + '/views/index.html'); //Setting the index.html as the rendered file when the base url is hit
-// }
 
 // Middleware
 app.use(function(req, res, next) {
@@ -50,151 +41,15 @@ app.use(function(req, res, next) {
   next();
 });
 
-// Route GET to '/' hit the /views/index.html
-app.get('/', function(req,res) {
-  console.log('Hit to The Home Page');
-  res.sendFile(__dirname + '/views/index.html');
-});
-
-app.get('/api', function api_index(req, res) {
-  // Documented API endpoints for Den-Brewery-App
-  res.json({
-    message: "Welcome to my Brewery api! Here's what you need to know!",
-    documentation_url: "https://github.com/trumpetcoder/Den-Brew-App/blob/master/README.md", 
-    base_url: "https://ancient-fjord-20095.herokuapp.com/", 
-    endpoints: [
-      {method: "GET", path: "/api", description: "Describes all available endpoints"},
-      {method: "GET", path: "/api/profile", description: "A little bit of info about me and my journey"}, 
-      {method: "GET", path: "/api/breweries", description: "Return a collection of all Breweries in db"}, 
-      {method: "GET", path: "/api/breweries/:id", description: "Grab one Brewery by an id"}, 
-      {method: "DELETE", path: "/api/breweries/:id", description: "Delete one Brewery by id."}, 
-      {method: "POST", path: "/api/breweries", description: "Adding a new Brewery to db."}, 
-      {method: "PUT", path: "/api/breweries/:id", description: "Updating a particular value based off an id"}
-    ]
-  });
-});
-
-app.get('/api/profile', function(req, res) {
-  // Profile Setup
-  res.json({
-    name: 'Kevin James',
-    city: 'Denver',
-    github_link: 'https://github.com/trumpetcoder',
-    description: 'I have an undergraduate degree in Music Ed. and 4+ years of Masters work in music history/performance. I have recently taken on fullstack web development',    
-  });
-});
-
-// Breweries api index to get all Breweries
-app.get('/api/breweries', function (req, res) {
-  // send all Breweries as JSON response
-  db.Breweries.find(function (err, brewery) {
-    res.json(brewery);
-  });  
-});
-
-// Get one Brewery by id
-app.get('/api/breweries/:id', function (req, res) {
-  db.Breweries.findOne({_id: req.params.id}, function (req, brewery) {
-    res.json(brewery);
-  });
-});
-
-// Create new Brewery
-app.post('/api/breweries', function (req, res) {
-  console.log(req.body.name);
-  var newBrewery = new db.Breweries({
-    name: req.body.name,
-    description: req.body.description,
-    website: req.body.website,
-    established: req.body.established
-  });
-  console.log(newBrewery);
-  // save new Brewery
-    db.Breweries.create(newBrewery, function (err, brewery) {
-      if (err) {
-        return console.log('save error: ' + err);      
-      }
-      console.log('save ', brewery.name);
-      res.json(brewery);
-  });
-});
-
-// Update a Brewery by id
-app.put('/api/breweries/:id', function update(req, res) {
-  var localBrew = req.params.id;
-  db.Breweries.findOneAndUpdate({_id: req.params.id}, {$set: {name: req.body.name, description: req.body.description, website: req.body.website, established: req.body.established}}, function (err, localBrew) {
-    if (err) {
-      return console.log(err);
-    }
-    res.json(localBrew);
-  });
-});
-
-// Delete a Brewery
-app.delete('/api/breweries/:id', function (req, res) {
-  // get Brewery id from url params (`req.params`)
-  console.log('brewery delete', req.params);
-  var delBrewery = req.params.id;
-  // find the index of the Brewery we want to remove
-  db.Breweries.findOneAndRemove({ _id: delBrewery }, function (err, deletedBrewery) {
-    res.json(deletedBrewery);
-  });
-});
-
-// // A route we need to hit from the link on the splash page to get us to a simple signup form
-app.get('/signup', function(req, res) { //route we want to hit
- res.render('signup.ejs', {message: req.flash('signupMessage')}); //the file we want to render. This points to signup.ejs form
-});
-
-// Our signup post strategy utilizing the local-signup strategy
-app.post('/signup', function(req, res, next) {
- // res.send(req.body); a way to check the form has worked
- console.log('post route hit'); // checking to see if we have the post route 
- var signupStrategy = passport.authenticate('local-signup', { // a variable set-up to utilizing the local-signup 
-   successRedirect: '/', // A route that redirects us when successful. Needs built out
-   failureRedirect: '/signup', // A route that points us to the sign-up page if not successful
-   failureFlash: true 
- });
-
- return signupStrategy(req, res, next); 
-});
-
-app.get('/login', function(req, res){
-   res.render('login.ejs', {message: req.flash('loginMessage')});
-});
-
-app.post('/login', function(req, res, next){
-   console.log('attempting to');
-   var loginStrategy = passport.authenticate('local-login', {
-       successRedirect: '/',
-       failureRedirect: '/login',
-       failureFlash: true  
-   });
-   return loginStrategy(req, res, next);
-});
-
 // Requiring router
-// var routes = require('./config/routes.js');
-// app.use(routes);
-
-// connect to db models (Database)
-// var db = require('./models'); //added
-// app.use(db);
-
+var routes = require('./config/routes.js');
+app.use(routes);
 
 // START SERVER
 // listen on port 3000
 app.listen(process.env.PORT || 3000, function () {
   console.log('Express server is up and running on http://localhost:3000/');
 });
-
-
-
-
-
-
-
-
 
 
 // End
